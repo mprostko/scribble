@@ -1,0 +1,37 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-8">
+      <% if @round.player == @player %>
+        You're drawing!. Word: <%= @round.word %>
+      <% else %>
+        Guess: 
+        <span style="letter-spacing: 10px">
+          <%= @round.timed_word %>
+        </span>
+        <%= form_tag player_path do %>
+          <div class="form-group">
+            <input name="word" class="form-control" required autofocus>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Guess</button>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="col-4">
+      <h4>Score:</h4>
+      <% @game.score.each do |player, score| %>
+        <%= "#{player.username}: #{score}" %><br>
+      <% end %>
+      <hr>
+      <h4>Chat:</h4>
+      Here a chat window will appear in which you can guess the word
+      <hr>
+      <%= link_to 'Leave game', player_path, method: :delete, class: 'btn btn-danger' %>
+      <hr>
+      <h4>Debug:</h4>
+      User: <%= @player.username %><br>
+      User uuid: <%= @player.uuid %><br>
+      Game uuid: <%= @game.uuid %><br>
+      Game status: <%= @game.status %><br>
+    </div>
+  </div>
+</div>

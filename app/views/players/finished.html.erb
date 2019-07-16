@@ -1,0 +1,12 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <h4>Score:</h4>
+      <% @game.score.each do |player, score| %>
+        <%= "#{player.username}: #{score}" %><br>
+      <% end %>
+
+      <%= link_to 'New Game', root_path, class: 'btn btn-success' %>
+    </div>
+  </div>
+</div>

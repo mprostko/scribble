@@ -2,19 +2,29 @@ class PlayersController < ApplicationController
 
   # Shows current player's game
   def show
-    player = Player.find_by!(uuid: params[:uuid])
-    game = player.game
+    @player = Player.find_by!(uuid: session[:uuid])
+    @game = @player.game
+
+    @round = @game.current_round if @game.playing?
+
+    render @game.status.to_sym
   end
 
-  # Generate rounds, start game
-  def update
-    player = Player.find_by!(uuid: params[:uuid])
-    game = player.game
+  # Guess the word!
+  def create
+    @player = Player.find_by!(uuid: session[:uuid])
+    @game = @player.game
 
-    GenerateRounds.new(game: game).perform
+    GuessWord.new(player: @player).perform(params[:word])
+    @round = @game.current_round if @game.playing?
 
-    game.playing!
+    render @game.status.to_sym
+  end
 
-    render :show
+  # Leave game
+  def destroy
+    session.clear
+
+    redirect_to root_path
   end
 end

@@ -7,14 +7,15 @@ class InvitationsController < ApplicationController
   end
 
   # Join a game
-  def create
+  def update
     player = CreatePlayer.new(
-      nickname: params[:nickname],
+      username: params[:username],
       game:     find_game
     ).perform
 
     if player.persisted?
-      redirect_to @game # game show
+      session[:uuid] = player.uuid
+      redirect_to player_path # game show
     else
       render json: { ok: 'game not found' }
     end

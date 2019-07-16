@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 2019_07_16_170514) do
   create_table "players", force: :cascade do |t|
     t.string "username"
     t.string "uuid"
+    t.boolean "creator", default: false
     t.integer "game_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -32,24 +33,25 @@ ActiveRecord::Schema.define(version: 2019_07_16_170514) do
 
   create_table "rounds", force: :cascade do |t|
     t.integer "status"
-    t.integer "word_id"
-    t.integer "artist_id"
+    t.string "word"
+    t.integer "player_id"
+    t.integer "game_id"
     t.datetime "round_start"
     t.datetime "round_end"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["artist_id"], name: "index_rounds_on_artist_id"
-    t.index ["word_id"], name: "index_rounds_on_word_id"
+    t.index ["game_id"], name: "index_rounds_on_game_id"
+    t.index ["player_id"], name: "index_rounds_on_player_id"
   end
 
   create_table "scores", force: :cascade do |t|
-    t.integer "user_id"
+    t.integer "player_id"
     t.integer "round_id"
     t.integer "score"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["player_id"], name: "index_scores_on_player_id"
     t.index ["round_id"], name: "index_scores_on_round_id"
-    t.index ["user_id"], name: "index_scores_on_user_id"
   end
 
   create_table "words", force: :cascade do |t|

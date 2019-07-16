@@ -1,0 +1,14 @@
+<%= form_tag(invitation_path(params[:uuid]), method: :patch) do %>
+  <div class="text-center"> 
+    <img class="mb-4" src="https://img.icons8.com/dusk/64/000000/pencil.png" alt="" width="72" height="72">
+  </div>
+
+  <h1 class="h3 mb-3 font-weight-normal">You were invited</h1>
+  
+  <div class="form-group">
+    <label for="username">Username</label>
+    <input name="username" class="form-control" placeholder="Your username" required autofocus>
+  </div>
+
+  <button class="btn btn-lg btn-primary btn-block" type="submit">Join game</button>
+<% end %>

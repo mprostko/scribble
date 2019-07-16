@@ -1,0 +1,36 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-8">
+      <h3>Game lobby:</h3>
+
+      Invite players by sending them this link:<br>
+      <%= link_to invitation_url(uuid: @game.uuid), invitation_path(uuid: @game.uuid) %><br>
+
+      <h3>Players:</h3>
+      <ul>
+      <% @game.players.each do |player| %>
+        <li>
+          <%= player.username %>
+          <% if player == @player %><small>(it's you!)</small><% end %>
+        </li>
+      <% end %>
+      </ul>
+    </div>
+    <div class="col-4">
+      <h4>Debug:</h4>
+      User: <%= @player.username %><br>
+      User uuid: <%= @player.uuid %><br>
+      Game uuid: <%= @game.uuid %><br>
+      Game status: <%= @game.status %><br>
+      <hr>
+      <h4>Game settings:</h4>
+      Rounds: <%= @game.max_rounds %><br>
+      Time per round: <%= @game.draw_time %><br>
+      <hr>
+      <% if @game.creator == @player %>
+        <%= link_to 'Start game', game_path, method: :patch, class: 'btn btn-primary' %>
+      <% end %>
+      <%= link_to 'Leave game', player_path, method: :delete, class: 'btn btn-primary' %>
+    </div>
+  </div>
+</div>
