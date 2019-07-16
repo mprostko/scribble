@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  status: 1
+  word: one
+  artist: 
+  round_end: 2019-07-16 18:59:38
+
+two:
+  status: 1
+  word: two
+  artist: 
+  round_end: 2019-07-16 18:59:38
